@@ -46,6 +46,17 @@ class _TaskBoardScreenState extends State<TaskBoardScreen> {
     });
   }
 
+  // [NEW] Logic para sa "Done" button
+  void _markAsDone(String id) {
+    setState(() {
+      final index = tasks.indexWhere((t) => t.id == id);
+      if (index != -1) {
+        // Update natin yung status to 'done'
+        tasks[index].status = Status.done;
+      }
+    });
+  }
+
   // Filter logic
   List<Task> get _filteredTasks {
     switch (_currentFilter) {
@@ -161,6 +172,8 @@ class _TaskBoardScreenState extends State<TaskBoardScreen> {
                     task: task,
                     onEdit: () => _navigateToForm(task: task),
                     onDelete: () => _deleteTask(task.id),
+                    onDone: () =>
+                        _markAsDone(task.id), // [NEW] Pass the function here
                   ),
                 );
               },
