@@ -1,7 +1,7 @@
 import '../models/task.dart';
 
-// [INSTRUCTION] Requirement: "Start with at least 6 sample tasks"
-// [CHANGEABLE] Themed for "StudySprint"
+// Requirement: may 6 sample tasks
+// Pwede pang baguhin, pang-StudySprint
 final List<Task> mockTasks = [
   Task(
     id: '1',

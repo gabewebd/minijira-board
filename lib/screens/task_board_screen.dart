@@ -8,7 +8,7 @@ import '../widgets/summary_card.dart';
 import '../widgets/task_card.dart';
 import 'task_form_screen.dart';
 
-// [INSTRUCTION] Requirement: Quick Filters
+// Requirement: quick filter
 enum Filter { all, highPriority, done }
 
 class TaskBoardScreen extends StatefulWidget {
@@ -19,11 +19,11 @@ class TaskBoardScreen extends StatefulWidget {
 }
 
 class _TaskBoardScreenState extends State<TaskBoardScreen> {
-  // [INSTRUCTION] In-memory list from mock data
+  // List ng tasks galing sa mock data (nasa memory lang)
   List<Task> tasks = List.from(mockTasks);
   Filter _currentFilter = Filter.all;
 
-  // --- CRUD & Navigation ---
+  // CRUD and navigation
   void _navigateToForm({Task? task}) async {
     final result = await Navigator.of(context).push<Task>(
       MaterialPageRoute(builder: (context) => TaskFormScreen(task: task)),
@@ -46,7 +46,7 @@ class _TaskBoardScreenState extends State<TaskBoardScreen> {
     });
   }
 
-  // --- Filter Logic ---
+  // Filter logic
   List<Task> get _filteredTasks {
     switch (_currentFilter) {
       case Filter.highPriority:
@@ -73,7 +73,7 @@ class _TaskBoardScreenState extends State<TaskBoardScreen> {
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // [CHANGEABLE] Dashboard Title
+            // Can change: Dashboard title
             Text(
               'StudySprint Board',
               style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
@@ -87,7 +87,7 @@ class _TaskBoardScreenState extends State<TaskBoardScreen> {
       ),
       body: Column(
         children: [
-          // [INSTRUCTION] Requirement A1: Sprint Summary Row (3 Containers)
+          // Requirement A1: summary ng sprint (3 containers)
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Row(
@@ -119,7 +119,7 @@ class _TaskBoardScreenState extends State<TaskBoardScreen> {
             ),
           ),
 
-          // [INSTRUCTION] Requirement E: Summary Card
+          // Requirement E: Summary Card
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: SummaryCard(
@@ -131,7 +131,7 @@ class _TaskBoardScreenState extends State<TaskBoardScreen> {
 
           const SizedBox(height: 16),
 
-          // [INSTRUCTION] Requirement E: Quick Filters
+          // Requirement E: Quick Filters
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -148,7 +148,7 @@ class _TaskBoardScreenState extends State<TaskBoardScreen> {
 
           const SizedBox(height: 12),
 
-          // [INSTRUCTION] Requirement A2: Task List
+          // Requirement A2: listahan ng tasks
           Expanded(
             child: ListView.builder(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -168,7 +168,7 @@ class _TaskBoardScreenState extends State<TaskBoardScreen> {
           ),
         ],
       ),
-      // [INSTRUCTION] Requirement A3: Add Task Button
+      // Requirement A3: button para makapag-add ng task
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => _navigateToForm(),
         icon: const Icon(Icons.edit_note, color: Colors.black),
