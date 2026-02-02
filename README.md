@@ -1,4 +1,3 @@
-````markdown
 # MiniJira Board
 
 **Midterm Lab Activity 3 - Group 2**
@@ -19,7 +18,7 @@ A simplified task management application inspired by Jira. This Flutter app feat
 | --- | --- |
 | **Aguiluz, Josh Andrei** | [Input Role] |
 | **Camus, Mark Dave** | [Input Role] |
-| **Velasquez, Gabrielle Ainshley** | Project Lead/Integrator |
+| **Velasquez, Gabrielle Ainshley** | Project Lead / Integrator |
 | **Yamaguchi, Mikaella Gabrielle** | [Input Role] |
 | **Yamzon, Jan** | [Input Role] |
 
@@ -29,24 +28,26 @@ A simplified task management application inspired by Jira. This Flutter app feat
 
 ### Aguiluz, Josh Andrei
 
-* [Input specific tasks here, e.g., Designed the StatBox widget...]
+* [Input specific tasks here, e.g., Designed the StatBox widget]
 
 ### Camus, Mark Dave
 
-* [Input specific tasks here...]
+* [Input specific tasks here]
 
 ### Velasquez, Gabrielle Ainshley
 
 * Set up the project architecture and folder structure.
-* Created and designed the TaskFormScreen widget, Task model, andinitially set up constants.dart file.
+* Created and designed the `TaskFormScreen` widget.
+* Implemented the `Task` model.
+* Initially set up the `constants.dart` file.
 
 ### Yamaguchi, Mikaella Gabrielle
 
-* [Input specific tasks here...]
+* [Input specific tasks here]
 
 ### Yamzon, Jan
 
-* [Input specific tasks here...]
+* [Input specific tasks here]
 
 ---
 
@@ -55,7 +56,7 @@ A simplified task management application inspired by Jira. This Flutter app feat
 1. **Install dependencies:**
 ```bash
 flutter pub get
-````
+```
 
 2. **Run the application:**
 
