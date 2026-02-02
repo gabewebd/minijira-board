@@ -13,45 +13,30 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Mini Jira Board',
+      // [CHANGEABLE] App Title
+      title: 'StudySprint',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primaryColor: AppColors.primary,
         scaffoldBackgroundColor: AppColors.background,
-        fontFamily: GoogleFonts.cabin().fontFamily,
+        // [CHANGEABLE] Font choice (Poppins is very modern/student-friendly)
+        fontFamily: GoogleFonts.poppins().fontFamily,
         appBarTheme: AppBarTheme(
           backgroundColor: AppColors.primary,
-          titleTextStyle: GoogleFonts.cabin(
-            fontSize: 20,
+          elevation: 0,
+          titleTextStyle: GoogleFonts.poppins(
+            fontSize: 22,
             fontWeight: FontWeight.bold,
             color: Colors.white,
           ),
+          iconTheme: const IconThemeData(color: Colors.white),
         ),
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: AppColors.primary,
-            foregroundColor: Colors.white,
-            shape: RoundedRectangleBorder(
-              borderRadius: AppStyles.cardBorderRadius,
-            ),
-          ),
-        ),
-        inputDecorationTheme: InputDecorationTheme(
-          border: OutlineInputBorder(
-            borderRadius: AppStyles.cardBorderRadius,
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: AppStyles.cardBorderRadius,
-            borderSide: BorderSide(color: AppColors.primary, width: 2),
-          ),
-        ),
-        cardTheme: CardThemeData(
-          shape: RoundedRectangleBorder(
-            borderRadius: AppStyles.cardBorderRadius,
-          ),
-          elevation: AppStyles.cardElevation,
+        floatingActionButtonTheme: const FloatingActionButtonThemeData(
+          backgroundColor: AppColors.secondary, // Amber button
+          foregroundColor: Colors.black, // Dark icon on amber
         ),
       ),
+      // [INSTRUCTION] Requirement: Open Screen A (Task Board)
       home: const TaskBoardScreen(),
     );
   }

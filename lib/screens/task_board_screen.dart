@@ -8,6 +8,7 @@ import '../widgets/summary_card.dart';
 import '../widgets/task_card.dart';
 import 'task_form_screen.dart';
 
+// [INSTRUCTION] Requirement: Quick Filters
 enum Filter { all, highPriority, done }
 
 class TaskBoardScreen extends StatefulWidget {
@@ -18,10 +19,11 @@ class TaskBoardScreen extends StatefulWidget {
 }
 
 class _TaskBoardScreenState extends State<TaskBoardScreen> {
-  // Data source
-  List<Task> tasks = mockTasks;
+  // [INSTRUCTION] In-memory list from mock data
+  List<Task> tasks = List.from(mockTasks);
+  Filter _currentFilter = Filter.all;
 
-  // Navigation to TaskForm
+  // --- CRUD & Navigation ---
   void _navigateToForm({Task? task}) async {
     final result = await Navigator.of(context).push<Task>(
       MaterialPageRoute(builder: (context) => TaskFormScreen(task: task)),
@@ -29,62 +31,177 @@ class _TaskBoardScreenState extends State<TaskBoardScreen> {
     if (result != null) {
       setState(() {
         if (task == null) {
-          tasks.add(result);
+          tasks.add(result); // Create
         } else {
           final index = tasks.indexWhere((t) => t.id == task.id);
-          if (index != -1) tasks[index] = result;
+          if (index != -1) tasks[index] = result; // Update
         }
       });
     }
   }
 
+  void _deleteTask(String id) {
+    setState(() {
+      tasks.removeWhere((t) => t.id == id); // Delete
+    });
+  }
+
+  // --- Filter Logic ---
+  List<Task> get _filteredTasks {
+    switch (_currentFilter) {
+      case Filter.highPriority:
+        return tasks.where((t) => t.priority == Priority.high).toList();
+      case Filter.done:
+        return tasks.where((t) => t.status == Status.done).toList();
+      default:
+        return tasks;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final int toDoCount = tasks.where((t) => t.status == Status.toDo).length;
+    final int inProgressCount = tasks
+        .where((t) => t.status == Status.inProgress)
+        .length;
+    final int doneCount = tasks.where((t) => t.status == Status.done).length;
+
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
         centerTitle: false,
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        title: Padding(
-          padding: const EdgeInsets.only(left: 8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'MiniJira Board',
-                style: GoogleFonts.outfit(
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.textPrimary,
-                  fontSize: 26,
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // [CHANGEABLE] Dashboard Title
+            Text(
+              'StudySprint Board',
+              style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
+            ),
+            Text(
+              'Academic Planner',
+              style: GoogleFonts.poppins(fontSize: 12, color: Colors.white70),
+            ),
+          ],
+        ),
+      ),
+      body: Column(
+        children: [
+          // [INSTRUCTION] Requirement A1: Sprint Summary Row (3 Containers)
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Row(
+              children: [
+                Expanded(
+                  child: StatBox(
+                    title: "To Do",
+                    count: toDoCount,
+                    color: AppColors.toDoStatus,
+                  ),
                 ),
-              ),
-              Text(
-                'Sprint Overview',
-                style: GoogleFonts.cabin(
-                  fontSize: 14,
-                  color: Colors.grey[500],
+                const SizedBox(width: 12),
+                Expanded(
+                  child: StatBox(
+                    title: "Studying",
+                    count: inProgressCount,
+                    color: AppColors.inProgressStatus,
+                  ),
                 ),
-              ),
-            ],
+                const SizedBox(width: 12),
+                Expanded(
+                  child: StatBox(
+                    title: "Done",
+                    count: doneCount,
+                    color: AppColors.doneStatus,
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          // [INSTRUCTION] Requirement E: Summary Card
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: SummaryCard(
+              total: tasks.length,
+              done: doneCount,
+              remaining: toDoCount + inProgressCount,
+            ),
+          ),
+
+          const SizedBox(height: 16),
+
+          // [INSTRUCTION] Requirement E: Quick Filters
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Row(
+              children: [
+                _buildFilterChip("All Work", Filter.all),
+                const SizedBox(width: 10),
+                _buildFilterChip("High Priority", Filter.highPriority),
+                const SizedBox(width: 10),
+                _buildFilterChip("Completed", Filter.done),
+              ],
+            ),
+          ),
+
+          const SizedBox(height: 12),
+
+          // [INSTRUCTION] Requirement A2: Task List
+          Expanded(
+            child: ListView.builder(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              itemCount: _filteredTasks.length,
+              itemBuilder: (context, index) {
+                final task = _filteredTasks[index];
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 12),
+                  child: TaskCard(
+                    task: task,
+                    onEdit: () => _navigateToForm(task: task),
+                    onDelete: () => _deleteTask(task.id),
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+      // [INSTRUCTION] Requirement A3: Add Task Button
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () => _navigateToForm(),
+        icon: const Icon(Icons.edit_note, color: Colors.black),
+        label: Text(
+          "New Assignment",
+          style: GoogleFonts.poppins(
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
           ),
         ),
       ),
-      
-      body: Container(),
+    );
+  }
 
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => _navigateToForm(),
-        backgroundColor: const Color(0xFF6C5CE7),
-        elevation: 4,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
-        icon: const Icon(Icons.add, color: Colors.white, size: 24),
-        label: Text(
-          "Add Task", 
-          style: GoogleFonts.cabin(
-            fontWeight: FontWeight.bold, 
-            color: Colors.white,
-            fontSize: 16,
+  Widget _buildFilterChip(String label, Filter filter) {
+    final bool isSelected = _currentFilter == filter;
+    return GestureDetector(
+      onTap: () => setState(() => _currentFilter = filter),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        decoration: BoxDecoration(
+          color: isSelected ? AppColors.primary : Colors.white,
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(
+            color: isSelected ? AppColors.primary : Colors.grey.shade300,
+          ),
+        ),
+        child: Text(
+          label,
+          style: GoogleFonts.poppins(
+            color: isSelected ? Colors.white : AppColors.textPrimary,
+            fontWeight: FontWeight.bold,
           ),
         ),
       ),

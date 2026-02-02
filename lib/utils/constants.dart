@@ -1,35 +1,38 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-  // Modern Clean Palette
-  static const Color primary = Color(0xFF2D3436);       // Dark Charcoal (Buttons/Headers)
-  static const Color secondary = Color(0xFF6C5CE7);     // Soft Purple (Accents)
-  static const Color background = Color(0xFFF8F9FA);    // Off-white background
-  static const Color surface = Colors.white;            // Card backgrounds
-  
-  // Status Colors (Pastel/Soft)
-  static const Color toDoStatus = Color(0xFF74B9FF);    // Soft Blue
-  static const Color inProgressStatus = Color(0xFFA29BFE);// Soft Purple
-  static const Color doneStatus = Color(0xFF00B894);    // Soft Teal
+  // [CHANGEABLE] THEME: "StudySprint" (Purple & Amber)
+  static const Color primary = Color(
+    0xFF673AB7,
+  ); // Deep Purple (Header/Buttons)
+  static const Color secondary = Color(0xFFFFC107); // Amber (Accents/Active)
+  static const Color background = Color(0xFFF3E5F5); // Light Purple/White Tint
+  static const Color surface = Colors.white;
 
-  // Priority Colors
-  static const Color highPriority = Color(0xFFFF7675);  // Soft Red
-  static const Color mediumPriority = Color(0xFFFDCB6E); // Soft Orange
-  static const Color lowPriority = Color(0xFF55EFC4);   // Soft Mint
+  // [INSTRUCTION] Requirement: "Counter text must change color... Safe / Warning / Danger"
+  // [CHANGEABLE] You can pick specific colors, but they must represent these states.
+  static const Color counterSafe = Color(0xFF4CAF50); // Green
+  static const Color counterWarning = Color(0xFFFF9800); // Orange
+  static const Color counterDanger = Color(0xFFF44336); // Red
 
-  // Counter Colors (Logic Specific)
-  static const Color counterSafe = Color(0xFF00B894);   // Teal
-  static const Color counterWarning = Color(0xFFFDCB6E);// Orange
-  static const Color counterDanger = Color(0xFFFF7675); // Red
-  
-  // Text
-  static const Color textPrimary = Color(0xFF2D3436);
-  static const Color textSecondary = Color(0xFF636E72);
+  // [CHANGEABLE] Status Colors (Visuals)
+  static const Color toDoStatus = Color(0xFF9E9E9E); // Grey
+  static const Color inProgressStatus = Color(0xFFFFC107); // Amber (Busy)
+  static const Color doneStatus = Color(0xFF4CAF50); // Green (Complete)
+
+  // [CHANGEABLE] Priority Colors
+  static const Color highPriority = Color(0xFFE91E63); // Pink/Red
+  static const Color mediumPriority = Color(0xFF2196F3); // Blue
+  static const Color lowPriority = Color(0xFF009688); // Teal
+
+  static const Color textPrimary = Color(0xFF311B92); // Dark Deep Purple
+  static const Color textSecondary = Color(0xFF757575); // Grey
 }
 
 class AppStyles {
-  static const BorderRadius cardBorderRadius = BorderRadius.all(Radius.circular(24)); // More rounded
-  static const double cardElevation = 0; // Flat style with border preference
-  static const double titleFontSize = 20.0;
-  static const double bodyFontSize = 15.0;
+  // [CHANGEABLE] Styling constants
+  static const BorderRadius cardBorderRadius = BorderRadius.all(
+    Radius.circular(16),
+  );
+  static const double cardElevation = 3;
 }
