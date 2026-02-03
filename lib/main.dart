@@ -4,7 +4,7 @@ import 'screens/task_board_screen.dart';
 import 'utils/constants.dart';
 
 void main() {
-  // Dito nagsisimula ang takbo ng app natin
+  // Dito nagsisimula app natin
   runApp(const MyApp());
 }
 
