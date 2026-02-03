@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../utils/constants.dart';
 
-// [INSTRUCTION] Requirement E: Summary Card
+// [Requirement E: Summary Card]
+// Ito yung colorful card sa gitna pinapakita overall progress
+// (Total / Done / Remaining).
 class SummaryCard extends StatelessWidget {
   final int total;
   final int done;
@@ -19,15 +21,16 @@ class SummaryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(20),
+      // Gumamit ako ng LinearGradient (Blue Purple Teal) para modern tingnan.
       decoration: BoxDecoration(
-        // [CHANGEABLE] Deep Purple Gradient
         gradient: const LinearGradient(
           colors: [Color(0xFF2962FF), Color(0xFF6246EA), Color(0xFF00BFA5)],
           begin: Alignment.centerLeft,
           end: Alignment.centerRight,
         ),
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(20), // Rounded corners
         boxShadow: [
+          // Nilagyan ko ng shadow para umangat siya tingnan sa background
           BoxShadow(
             color: AppColors.primary.withOpacity(0.4),
             blurRadius: 8,
@@ -36,9 +39,10 @@ class SummaryCard extends StatelessWidget {
         ],
       ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.spaceAround, // Pantay na spacing
         children: [
           _item("Total", total),
+          // Vertical divider: Manipis na line lang sa pagitan ng stats
           Container(width: 1, height: 30, color: Colors.white24),
           _item("Done", done),
           Container(width: 1, height: 30, color: Colors.white24),
@@ -48,9 +52,11 @@ class SummaryCard extends StatelessWidget {
     );
   }
 
+  // Helper widget para hindi paulit-ulit yung code ng Column at Text
   Widget _item(String label, int count) {
     return Column(
       children: [
+        // Yung malaking number
         Text(
           count.toString(),
           style: GoogleFonts.poppins(
@@ -58,7 +64,8 @@ class SummaryCard extends StatelessWidget {
             fontWeight: FontWeight.bold,
             color: Colors.white,
           ),
-        ), // Amber text
+        ),
+        // Yung label sa ilalim (e.g. "Total", "Done")
         Text(
           label,
           style: GoogleFonts.poppins(fontSize: 12, color: Colors.white70),

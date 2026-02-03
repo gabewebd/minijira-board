@@ -4,8 +4,12 @@ import '../models/task.dart';
 import '../utils/constants.dart';
 import 'priority_badge.dart';
 
+// [Requirement C: ListView + Card UI]
+// Ito yung hitsura dapat ng bawat task sa listahan.
 class TaskCard extends StatelessWidget {
   final Task task;
+  // Mga functions na galing sa parent widget (TaskBoardScreen)
+  // Para gumana yung buttons (Edit, Delete, Mark as Done)
   final VoidCallback onEdit;
   final VoidCallback onDelete;
   final VoidCallback onDone;
@@ -22,6 +26,7 @@ class TaskCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(16),
+      // white na may rounded corners at shadow para eleveated tingnan
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
@@ -36,16 +41,20 @@ class TaskCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // [UPDATED] Row for both Priority AND Status Tags
+          // [UPDATED] Row 1: Badges at Actions
+          // Gumamit ako ng Row sa loob ng Row para maganda alignment
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+              // Left side: Priority Badge at Status Chip
               Row(
                 children: [
-                  // 1. Priority Chip (e.g. HIGH)
+                  // 1. Priority Chip (e.g. HIGH) - Gamit yung PriorityBadge widget
                   PriorityBadge(priority: task.priority),
                   const SizedBox(width: 8),
-                  // 2. [NEW] Status Chip (e.g. TO DO)
+                  
+                  // 2. Status Chip (e.g. TO DO)
+                  // Gumamit ako ng helper method _buildTag sa baba para malinis tingnan
                   _buildTag(
                     text: _getStatusText(task.status),
                     color: _getStatusColor(task.status),
@@ -53,7 +62,8 @@ class TaskCard extends StatelessWidget {
                 ],
               ),
 
-              // Action Buttons (Edit/Delete)
+              // Right side: Action Buttons (Edit/Delete)
+              // Gumamit ako ng IconButton para maliit at malinis
               Row(
                 children: [
                   IconButton(
@@ -81,6 +91,7 @@ class TaskCard extends StatelessWidget {
               fontSize: 16,
               fontWeight: FontWeight.bold,
               color: AppColors.textPrimary,
+              // Strikethrough effect kapag tapos na yung task
               decoration: task.status == Status.done
                   ? TextDecoration.lineThrough
                   : null,
@@ -88,11 +99,11 @@ class TaskCard extends StatelessWidget {
           ),
           const SizedBox(height: 4),
 
-          // Task Description
+          // Task Description (Subtitle)
           Text(
             task.description,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
+            maxLines: 2, // Limit sa 2 lines para hindi sobrang haba
+            overflow: TextOverflow.ellipsis, // Magkakaroon ng "..." sa dulo pag mahaba
             style: GoogleFonts.poppins(
               fontSize: 12,
               color: AppColors.textSecondary,
@@ -101,10 +112,11 @@ class TaskCard extends StatelessWidget {
 
           const SizedBox(height: 16),
 
-          // Done Button (Only shows if NOT Done)
+          // Done Button
+          // Nagpapakita lang to kapag HINDI pa tapos ang task
           if (task.status != Status.done)
             SizedBox(
-              width: double.infinity,
+              width: double.infinity, // Full width button
               child: ElevatedButton.icon(
                 onPressed: onDone,
                 icon: const Icon(Icons.check_circle, size: 16),
@@ -113,9 +125,9 @@ class TaskCard extends StatelessWidget {
                   style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
                 ),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.green[50],
-                  foregroundColor: Colors.green[700],
-                  elevation: 0,
+                  backgroundColor: Colors.green[50], // Light green bg
+                  foregroundColor: Colors.green[700], // Dark green text
+                  elevation: 0, // Flat design, walang shadow
                   padding: const EdgeInsets.symmetric(vertical: 8),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
@@ -128,14 +140,14 @@ class TaskCard extends StatelessWidget {
     );
   }
 
-  // Helper widget para hindi paulit-ulit yung code ng tags
+  // Helper widget: Para hindi tayo paulit-ulit ng styling sa chips
   Widget _buildTag({required String text, required Color color}) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.1),
+        color: color.withOpacity(0.1), // Light background color
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: color.withOpacity(0.3), width: 1),
+        border: Border.all(color: color.withOpacity(0.3), width: 1), // Border color
       ),
       child: Text(
         text,
@@ -148,25 +160,25 @@ class TaskCard extends StatelessWidget {
     );
   }
 
-  // Helper para sa text display ng status
+  // Helper function: Status enum to text na gusto natin makita
   String _getStatusText(Status status) {
     switch (status) {
       case Status.toDo:
         return "TO DO";
       case Status.inProgress:
-        return "IN PROGRESS"; // Ito yung gusto mo makita
+        return "IN PROGRESS";
       case Status.done:
         return "COMPLETED";
     }
   }
 
-  // Helper para sa colors ng status
+  // Helper function: kulay depende sa status
   Color _getStatusColor(Status status) {
     switch (status) {
       case Status.toDo:
         return AppColors.toDoStatus;
       case Status.inProgress:
-        return AppColors.inProgressStatus; // Color for Studying
+        return AppColors.inProgressStatus;
       case Status.done:
         return AppColors.doneStatus;
     }
