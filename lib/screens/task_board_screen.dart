@@ -80,63 +80,86 @@ class _TaskBoardScreenState extends State<TaskBoardScreen> {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
+        backgroundColor: AppColors.primary,
+        elevation: 0,
         centerTitle: false,
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Can change: Dashboard title
-            Text(
-              'StudySprint Board',
-              style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
-            ),
-            Text(
-              'Academic Planner',
-              style: GoogleFonts.poppins(fontSize: 12, color: Colors.white70),
-            ),
-          ],
+        title: Padding(
+          padding: const EdgeInsets.only(top: 10.0, bottom: 5.0), // [FIX] Added spacing
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Can change: Dashboard title
+              Text(
+                'MiniJira Sprint',
+                style: GoogleFonts.poppins(
+                    fontWeight: FontWeight.bold, color: Colors.white, fontSize: 22),
+              ),
+              const SizedBox(height: 4),
+              Text(
+                'Software Project Board',
+                style: GoogleFonts.poppins(fontSize: 13, color: Colors.white70),
+              ),
+            ],
+          ),
         ),
       ),
       body: Column(
         children: [
-          // Requirement A1: summary ng sprint (3 containers)
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Row(
+          Container(
+            padding: const EdgeInsets.only(bottom: 20),
+            decoration: const BoxDecoration(
+              color: AppColors.primary,
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(30),
+                bottomRight: Radius.circular(30),
+              ),
+            ),
+            child: Column(
               children: [
-                Expanded(
-                  child: StatBox(
-                    title: "To Do",
-                    count: toDoCount,
-                    color: AppColors.toDoStatus,
+                // Added spacing here so title doesn't touch cards
+                const SizedBox(height: 20),
+                // Requirement A1: summary ng sprint (3 containers)
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: StatBox(
+                          title: "To Do",
+                          count: toDoCount,
+                          color: AppColors.toDoStatus,
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: StatBox(
+                          title: "In Progress",
+                          count: inProgressCount,
+                          color: AppColors.inProgressStatus,
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: StatBox(
+                          title: "Done",
+                          count: doneCount,
+                          color: AppColors.doneStatus,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: StatBox(
-                    title: "Studying",
-                    count: inProgressCount,
-                    color: AppColors.inProgressStatus,
-                  ),
-                ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: StatBox(
-                    title: "Done",
-                    count: doneCount,
-                    color: AppColors.doneStatus,
+                const SizedBox(height: 16),
+                // Requirement E: Summary Card
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: SummaryCard(
+                    total: tasks.length,
+                    done: doneCount,
+                    remaining: toDoCount + inProgressCount,
                   ),
                 ),
               ],
-            ),
-          ),
-
-          // Requirement E: Summary Card
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: SummaryCard(
-              total: tasks.length,
-              done: doneCount,
-              remaining: toDoCount + inProgressCount,
             ),
           ),
 
@@ -148,7 +171,7 @@ class _TaskBoardScreenState extends State<TaskBoardScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Row(
               children: [
-                _buildFilterChip("All Work", Filter.all),
+                _buildFilterChip("All Issues", Filter.all),
                 const SizedBox(width: 10),
                 _buildFilterChip("High Priority", Filter.highPriority),
                 const SizedBox(width: 10),
@@ -184,12 +207,13 @@ class _TaskBoardScreenState extends State<TaskBoardScreen> {
       // Requirement A3: button para makapag-add ng task
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => _navigateToForm(),
-        icon: const Icon(Icons.edit_note, color: Colors.black),
+        backgroundColor: AppColors.secondary,
+        icon: const Icon(Icons.add, color: Colors.white),
         label: Text(
-          "New Assignment",
+          "Create Issue",
           style: GoogleFonts.poppins(
             fontWeight: FontWeight.bold,
-            color: Colors.black,
+            color: Colors.white,
           ),
         ),
       ),
@@ -209,6 +233,9 @@ class _TaskBoardScreenState extends State<TaskBoardScreen> {
           border: Border.all(
             color: isSelected ? AppColors.primary : Colors.grey.shade300,
           ),
+          boxShadow: isSelected 
+            ? [BoxShadow(color: AppColors.primary.withOpacity(0.3), blurRadius: 4, offset: const Offset(0, 2))] 
+            : [],
         ),
         child: Text(
           label,

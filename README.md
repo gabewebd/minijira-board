@@ -15,12 +15,12 @@ A simplified task management application inspired by Jira. This Flutter app feat
 ## Member List & Assigned Roles
 
 | Name | Role |
-| --- | --- |
-| **Aguiluz, Josh Andrei** | [Input Role] |
-| **Camus, Mark Dave** | [Input Role] |
-| **Velasquez, Gabrielle Ainshley** | Project Lead / Integrator |
-| **Yamaguchi, Mikaella Gabrielle** | [Input Role] |
-| **Yamzon, Jan** | [Input Role] |
+|------|------|
+| **Aguiluz Josh Andrei** | Layout Specialist |
+| **Camus, Mark Dave** | Material UI Specialist |
+| **Velasquez, Gabrielle Ainshley** | Project Lead/Integrator |
+| **Yamaguchi, Mikaella Gabrielle** | Text & Styling Specialist |
+| **Yamzon, Jan** | QA & Documentation Specialist |
 
 ---
 
@@ -28,11 +28,14 @@ A simplified task management application inspired by Jira. This Flutter app feat
 
 ### Aguiluz, Josh Andrei
 
-* [Input specific tasks here, e.g., Designed the StatBox widget]
+* Reviewed, fixed, and organized the project files.
+* Cleaned up the file structure and minor issues.
+* Added “Mark as Done” functionality.
+* Added comments for better code clarity.
 
 ### Camus, Mark Dave
-
-* [Input specific tasks here]
+* Designing the gradient-styled SummaryCard and status-specific StatBox widgets to improve data visualization.
+* Implementing a centralized constants.dart file and integrating Google Fonts (Poppins) to ensure consistent typography across all screens.
 
 ### Velasquez, Gabrielle Ainshley
 
@@ -43,11 +46,15 @@ A simplified task management application inspired by Jira. This Flutter app feat
 
 ### Yamaguchi, Mikaella Gabrielle
 
-* [Input specific tasks here]
+* Reviewed, fixed, and organized the project files.
+* Cleaned up the file structure and minor issues.
+* Added “Mark as Done” functionality.
+* Added comments for better code clarity.
 
 ### Yamzon, Jan
 
-* [Input specific tasks here]
+* Verified features and workflows based on given requirements
+* Captured and organized screenshots for documentation and reporting purposes
 
 ---
 
@@ -78,7 +85,7 @@ flutter run -d chrome
 
 * [ ] **Create:** Users can add new tasks via the Task Form.
 * [ ] **Read:** Tasks are displayed in a scrollable list on the main board.
-* [ ] **Update:** Users can edit existing task details, priority, and status.
+* [ ] **Update:** Users can edit existing task details, priority, and status (like marking them as complete).
 * [ ] **Delete:** Users can remove tasks from the list.
 
 ### Sprint Summary & Analytics
@@ -95,7 +102,7 @@ flutter run -d chrome
   * **Color Logic:** Green (Safe), Orange (Warning), Red (Danger).
   * Prevents saving if the limit is exceeded.
 
-* [ ] **Custom Styling:** Uses the **Cabin** font and a unique color palette.
+* [ ] **Custom Styling:** Uses the **Poppins** font and a unique color palette.
 
 * [ ] **Reusable Widgets:** Implemented `TaskCard`, `StatBox`, and `PriorityBadge` to reduce code duplication.
 

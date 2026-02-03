@@ -21,9 +21,6 @@ class StatBox extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(
-          color: Colors.deepPurple.shade50,
-        ), // [CHANGEABLE] Subtle purple border
         boxShadow: [
           BoxShadow(
             color: Colors.deepPurple.withOpacity(0.05),
@@ -37,14 +34,15 @@ class StatBox extends StatelessWidget {
           Text(
             count.toString(),
             style: GoogleFonts.poppins(
-              fontSize: 24,
+              fontSize: 36,
               fontWeight: FontWeight.bold,
               color: color,
             ),
           ),
+          const SizedBox(height: 4),
           Text(
             title,
-            style: GoogleFonts.poppins(fontSize: 12, color: Colors.grey[600]),
+            style: GoogleFonts.poppins(fontSize: 14, color: Colors.grey[600]),
           ),
         ],
       ),

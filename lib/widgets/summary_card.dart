@@ -20,9 +20,11 @@ class SummaryCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        // [CHANGEABLE] Purple to Deep Purple Gradient
+        // [CHANGEABLE] Deep Purple Gradient
         gradient: const LinearGradient(
-          colors: [AppColors.primary, Color(0xFF4527A0)],
+          colors: [Color(0xFF2962FF), Color(0xFF6246EA), Color(0xFF00BFA5)],
+          begin: Alignment.centerLeft,
+          end: Alignment.centerRight,
         ),
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
@@ -54,7 +56,7 @@ class SummaryCard extends StatelessWidget {
           style: GoogleFonts.poppins(
             fontSize: 20,
             fontWeight: FontWeight.bold,
-            color: AppColors.secondary,
+            color: Colors.white,
           ),
         ), // Amber text
         Text(

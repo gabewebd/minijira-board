@@ -1,49 +1,48 @@
 import '../models/task.dart';
 
 // Requirement: may 6 sample tasks
-// Pwede pang baguhin, pang-StudySprint
+// Pwede pang baguhin
 final List<Task> mockTasks = [
   Task(
     id: '1',
-    title: 'Finish Mobile Dev Lab',
-    description: 'Complete the Flutter UI layout and push code to GitHub.',
+    title: 'Fix Login Authentication',
+    description: 'Users report getting a 403 Error when logging in via Google OAuth.',
     priority: Priority.high,
-    status: Status.inProgress,
-  ),
-  Task(
-    id: '2',
-    title: 'Review History Notes',
-    description: 'Read chapters 4-5 for the upcoming midterm exam.',
-    priority: Priority.medium,
     status: Status.toDo,
   ),
   Task(
+    id: '2',
+    title: 'Design Dashboard UI',
+    description: 'Create high-fidelity Figma mockups for the main analytics dashboard.',
+    priority: Priority.medium,
+    status: Status.inProgress,
+  ),
+  Task(
     id: '3',
-    title: 'Buy Group Snacks',
-    description: 'Get chips and soda for the hackathon tonight.',
-    priority: Priority.low,
+    title: 'Setup Firebase Database',
+    description: 'Initialize Firestore and configure security rules for user data.',
+    priority: Priority.high,
     status: Status.done,
   ),
   Task(
     id: '4',
-    title: 'Email Professor',
-    description:
-        'Ask for clarification on the final project rubric requirements.',
-    priority: Priority.medium,
-    status: Status.toDo,
+    title: 'Write API Documentation',
+    description: 'Document the new endpoints for the mobile app team using Swagger.',
+    priority: Priority.low,
+    status: Status.inProgress,
   ),
   Task(
     id: '5',
-    title: 'Print Research Paper',
-    description: 'Print the final draft of the Ethics essay at the library.',
-    priority: Priority.high,
-    status: Status.done,
+    title: 'Refactor Profile Widget',
+    description: 'Clean up the spaghetti code in the user profile section for better performance.',
+    priority: Priority.low,
+    status: Status.toDo,
   ),
   Task(
     id: '6',
-    title: 'Update Resume',
-    description: 'Add the new Flutter project to the portfolio section.',
-    priority: Priority.low,
-    status: Status.inProgress,
+    title: 'QA Testing - V1.2',
+    description: 'Perform regression testing on the release candidate build.',
+    priority: Priority.medium,
+    status: Status.done,
   ),
 ];

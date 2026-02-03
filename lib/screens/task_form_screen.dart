@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../models/task.dart';
 import '../utils/constants.dart';
+import '../widgets/priority_badge.dart';
 
 class TaskFormScreen extends StatefulWidget {
   final Task? task;
@@ -90,7 +91,12 @@ class _TaskFormScreenState extends State<TaskFormScreen> {
       backgroundColor: AppColors.primary,
       appBar: AppBar(
         // Dynamic yung title depende kung nag-aadd or edit
-        title: Text(widget.task == null ? "New Assignment" : "Edit Assignment"),
+        title: Text(
+          widget.task == null ? "Create Issue" : "Edit Issue",
+          style: GoogleFonts.poppins(
+              color: Colors.white, fontWeight: FontWeight.bold),
+        ),
+        iconTheme: const IconThemeData(color: Colors.white),
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
@@ -110,11 +116,18 @@ class _TaskFormScreenState extends State<TaskFormScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // --- Title / Subject Section ---
-                  _buildLabel("Subject / Title"),
+                  _buildLabel("Issue Summary"),
                   TextFormField(
                     controller: _titleController,
-                    decoration: const InputDecoration(
-                      hintText: "E.g., Math Homework",
+                    decoration: InputDecoration(
+                      hintText: "E.g., Fix login bug",
+                      hintStyle: GoogleFonts.poppins(color: Colors.grey[400]),
+                      filled: true,
+                      fillColor: Colors.grey[50],
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: BorderSide.none,
+                      ),
                     ),
                     // Bawal tong iwan na blanko
                     validator: (v) => v!.isEmpty ? "Required" : null,
@@ -122,12 +135,19 @@ class _TaskFormScreenState extends State<TaskFormScreen> {
                   const SizedBox(height: 20),
 
                   // --- Description / Details Section ---
-                  _buildLabel("Details"),
+                  _buildLabel("Description"),
                   TextFormField(
                     controller: _descController,
                     maxLines: 4,
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                       hintText: "Enter details...",
+                      hintStyle: GoogleFonts.poppins(color: Colors.grey[400]),
+                      filled: true,
+                      fillColor: Colors.grey[50],
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: BorderSide.none,
+                      ),
                     ),
                     // Need mag setState para mag-update yung counter real-time
                     onChanged: (v) => setState(() {}),
@@ -177,11 +197,20 @@ class _TaskFormScreenState extends State<TaskFormScreen> {
                             _buildLabel("Priority"),
                             DropdownButtonFormField<Priority>(
                               value: _selectedPriority,
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                  borderSide: BorderSide(
+                                      color: Colors.grey.shade300), // [FIX] Subtle Outline
+                                ),
+                                contentPadding:
+                                    const EdgeInsets.symmetric(horizontal: 12),
+                              ),
                               items: Priority.values
                                   .map(
                                     (p) => DropdownMenuItem(
                                       value: p,
-                                      child: Text(p.name.toUpperCase()),
+                                      child: PriorityBadge(priority: p),
                                     ),
                                   )
                                   .toList(),
@@ -201,6 +230,15 @@ class _TaskFormScreenState extends State<TaskFormScreen> {
                             _buildLabel("Status"),
                             DropdownButtonFormField<Status>(
                               value: _selectedStatus,
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                  borderSide: BorderSide(
+                                      color: Colors.grey.shade300), // [FIX] Subtle Outline
+                                ),
+                                contentPadding:
+                                    const EdgeInsets.symmetric(horizontal: 12),
+                              ),
                               items: Status.values
                                   .map(
                                     (s) => DropdownMenuItem(
@@ -210,8 +248,9 @@ class _TaskFormScreenState extends State<TaskFormScreen> {
                                         s.name == 'toDo'
                                             ? 'To Do'
                                             : s.name == 'inProgress'
-                                            ? 'Studying'
-                                            : 'Done',
+                                                ? 'In Progress'
+                                                : 'Done',
+                                        style: GoogleFonts.poppins(),
                                       ),
                                     ),
                                   )
@@ -235,13 +274,14 @@ class _TaskFormScreenState extends State<TaskFormScreen> {
                       onPressed: descLen > 120 ? null : _saveTask,
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.secondary,
-                        foregroundColor: Colors.black,
+                        foregroundColor: Colors.white,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
+                        elevation: 1,
                       ),
                       child: Text(
-                        "Save Assignment",
+                        "Save Issue",
                         style: GoogleFonts.poppins(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../models/task.dart';
 import '../utils/constants.dart';
+import 'priority_badge.dart';
 
 class TaskCard extends StatelessWidget {
   final Task task;
@@ -42,12 +43,9 @@ class TaskCard extends StatelessWidget {
               Row(
                 children: [
                   // 1. Priority Chip (e.g. HIGH)
-                  _buildTag(
-                    text: task.priority.name.toUpperCase(),
-                    color: _getPriorityColor(task.priority),
-                  ),
+                  PriorityBadge(priority: task.priority),
                   const SizedBox(width: 8),
-                  // 2. [NEW] Status Chip (e.g. STUDYING)
+                  // 2. [NEW] Status Chip (e.g. TO DO)
                   _buildTag(
                     text: _getStatusText(task.status),
                     color: _getStatusColor(task.status),
@@ -156,7 +154,7 @@ class TaskCard extends StatelessWidget {
       case Status.toDo:
         return "TO DO";
       case Status.inProgress:
-        return "STUDYING"; // Ito yung gusto mo makita
+        return "IN PROGRESS"; // Ito yung gusto mo makita
       case Status.done:
         return "COMPLETED";
     }
@@ -166,22 +164,11 @@ class TaskCard extends StatelessWidget {
   Color _getStatusColor(Status status) {
     switch (status) {
       case Status.toDo:
-        return Colors.blueGrey;
+        return AppColors.toDoStatus;
       case Status.inProgress:
-        return Colors.orange; // Color for Studying
+        return AppColors.inProgressStatus; // Color for Studying
       case Status.done:
-        return Colors.green;
-    }
-  }
-
-  Color _getPriorityColor(Priority priority) {
-    switch (priority) {
-      case Priority.high:
-        return Colors.red;
-      case Priority.medium:
-        return Colors.amber[800]!;
-      case Priority.low:
-        return Colors.blue;
+        return AppColors.doneStatus;
     }
   }
 }
